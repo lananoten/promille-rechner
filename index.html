@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Promillerechner – Blutalkohol schätzen</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
+  h1{font-size:1.6rem}
+  label{display:block;margin:.8rem 0 .2rem;font-weight:600}
+  input,select{width:100%;padding:.55rem;font-size:1rem;border:1px solid #bbb;border-radius:6px;box-sizing:border-box}
+  .row{display:flex;gap:.6rem}
+  .row>div{flex:1}
+  button{margin-top:1.2rem;padding:.7rem 1.4rem;font-size:1.05rem;background:#0b5fff;color:#fff;border:0;border-radius:8px;cursor:pointer}
+  button:hover{background:#084fd1}
+  #ergebnis{margin-top:1.4rem;padding:1rem;border:1px solid #ddd;border-radius:8px;background:#f7f9ff;display:none}
+  #ergebnis .wert{font-size:2rem;font-weight:700}
+  .hinweis{margin-top:1.4rem;font-size:.85rem;color:#555;background:#fff8e1;border:1px solid #f0dfa0;padding:.8rem;border-radius:8px}
+  .getraenk{border:1px solid #e0e0e0;border-radius:8px;padding:.8rem;margin-top:.6rem}
+  .klein{font-size:.85rem;color:#555}
+</style>
+</head>
+<body>
+<h1>Promillerechner</h1>
+<p class="klein">Schätzt die Blutalkoholkonzentration (BAK) nach der Widmark-Formel. Nur ein Richtwert – keine amtliche Messung.</p>
+
+<label for="geschlecht">Geschlecht</label>
+<select id="geschlecht">
+  <option value="0.7">Männlich</option>
+  <option value="0.6">Weiblich</option>
+</select>
+
+<label for="gewicht">Körpergewicht (kg)</label>
+<input id="gewicht" type="number" min="30" max="250" value="80">
+
+<label for="stunden">Stunden seit Trinkbeginn</label>
+<input id="stunden" type="number" min="0" max="24" step="0.5" value="2">
+
+<div id="getraenke"></div>
+<button type="button" onclick="getraenkHinzu()">+ Getränk hinzufügen</button>
+<br>
+<button type="button" onclick="berechnen()">Promille berechnen</button>
+
+<div id="ergebnis">
+  <div>Geschätzte Blutalkoholkonzentration:</div>
+  <div class="wert"><span id="promille">0,00</span> ‰</div>
+  <div class="klein" id="abbau"></div>
+</div>
+
+<div class="hinweis">
+  <strong>Hinweis:</strong> Das Ergebnis ist eine grobe Schätzung (Abbau ca. 0,15 ‰ pro Stunde).
+  Individuelle Faktoren wie Essen, Medikamente oder Gewöhnung sind nicht berücksichtigt.
+  Wer fährt, trinkt am besten gar nichts. Mehr Rechner und Ratgeber:
+  <a href="https://promillerechneronlne.de/">promillerechneronlne.de</a>
+</div>
+
+<script>
+let n = 0;
+function getraenkHinzu(){
+  n++;
+  const d = document.createElement('div');
+  d.className = 'getraenk'; d.id = 'g'+n;
+  d.innerHTML =
+    '<div class="row"><div><label>Menge (ml)</label><input type="number" class="ml" value="500" min="0"></div>'+
+    '<div><label>Vol.-% Alkohol</label><input type="number" class="proz" value="5" step="0.1" min="0" max="100"></div>'+
+    '<div><label>&nbsp;</label><button type="button" onclick="document.getElementById(\'g'+n+'\').remove()" style="margin-top:0">Entfernen</button></div></div>'+
+    '<div class="klein">Beispiele: Bier 500 ml / 5 %, Wein 200 ml / 12 %, Schnaps 40 ml / 40 %</div>';
+  document.getElementById('getraenke').appendChild(d);
+}
+function berechnen(){
+  const r = parseFloat(document.getElementById('geschlecht').value);
+  const m = parseFloat(document.getElementById('gewicht').value);
+  const t = parseFloat(document.getElementById('stunden').value);
+  if(!(m>0) || !(r>0)){ alert('Bitte Gewicht prüfen.'); return; }
+  let gramm = 0;
+  document.querySelectorAll('.getraenk').forEach(g=>{
+    const ml = parseFloat(g.querySelector('.ml').value)||0;
+    const p  = parseFloat(g.querySelector('.proz').value)||0;
+    gramm += ml * (p/100) * 0.8; // 0,8 g/ml Dichte von Alkohol
+  });
+  let promille = gramm / (m * r) - 0.15 * t;
+  if(promille < 0) promille = 0;
+  document.getElementById('promille').textContent = promille.toFixed(2).replace('.', ',');
+  const stunden = promille / 0.15;
+  document.getElementById('abbau').textContent =
+    'Ca. ' + stunden.toFixed(1).replace('.', ',') + ' Stunden, bis der Alkohol abgebaut ist (ca. 0,15 ‰/h).';
+  document.getElementById('ergebnis').style.display = 'block';
+}
+getraenkHinzu();
+</script>
+</body>
+</html>
