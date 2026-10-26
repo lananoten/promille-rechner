@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promille und Alltag – Essen, Schlaf, Medikamente & Getränke</title>
+<meta name="description" content="Wie Essen, Schlaf und Medikamente den Promillewert beeinflussen, und wie man aus Getränken Gramm Alkohol berechnet.">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,sans-serif;color:#222;line-height:1.65;background:#eff6ff}
+  a{color:#1e40af}
+  .hero{background:#1e3a8a;color:#eff6ff;padding:58px 22px}
+  .inner{max-width:860px;margin:0 auto}
+  .hero h1{font-size:2.3rem;line-height:1.2;margin:12px 0}
+  .hero p{max-width:640px;opacity:.93}
+  .hero a.btn{display:inline-block;margin-top:20px;background:#93c5fd;color:#111!important;text-decoration:none;font-weight:800;padding:13px 24px;border-radius:8px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  .card{background:#fff;border-radius:12px;padding:26px;margin:-20px auto 30px;box-shadow:0 4px 16px rgba(0,0,0,.07)}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}.hero h1{font-size:1.85rem}}
+  label{font-weight:700;font-size:.92rem}
+  input,select{width:100%;padding:10px;margin-top:5px;border:1px solid #bbb;border-radius:8px;font-size:1rem}
+  button{width:100%;margin-top:16px;padding:13px;background:#1e40af;color:#fff;border:none;border-radius:8px;font-weight:800;font-size:1rem;cursor:pointer}
+  #res{display:none;margin-top:16px;background:#dbeafe;border:1px solid #93c5fd;border-radius:8px;padding:16px}
+  #res.show{display:block}
+  #res .big{font-size:1.5rem;font-weight:800}
+  h2{margin:28px 0 12px}
+  .box{background:#fff;border-radius:10px;padding:22px;margin-bottom:28px}
+  .box li{margin:0 0 10px 20px}
+  .faq details{background:#fff;border-radius:8px;padding:14px 18px;margin-bottom:10px}
+  .faq summary{font-weight:700;cursor:pointer}
+  .faq p{margin-top:8px;color:#444}
+  .end{background:#1e3a8a;color:#eff6ff;text-align:center;padding:38px 20px;border-radius:12px;margin-bottom:30px}
+  .end a{color:#93c5fd}
+  footer{text-align:center;color:#666;font-size:.9rem;padding:20px 20px 40px}
+</style>
+</head>
+<body>
+<div class="hero"><div class="inner">
+  <p><strong>ESSEN • SCHLAF • MEDIKAMENTE • GETRÄNKE</strong></p>
+  <h1>Promille und Alltag: Was den Wert wirklich verändert</h1>
+  <p>„Ich habe ja gegessen“ oder „Ich habe geschlafen“ klingt beruhigend – aber beides ändert den Promillewert weniger, als viele glauben. Was wirklich zählt, ist die Menge, der Körper und die Zeit.</p>
+  <p><a class="btn" href="https://promillerechneronlne.de/">Promille genau berechnen &rarr;</a></p>
+</div></div>
+
+<div class="wrap">
+  <div class="card">
+    <h2>Getränke-Rechner: Gramm Alkohol aus Menge und Prozent</h2>
+    <p>Ein halber Liter Bier ist nicht „ein Bier“ im Sinne der Rechnung – es sind Gramm reiner Alkohol. Rechnen Sie hier aus Getränkemenge und Alkoholgehalt die Gramm, und daraus den Promillewert.</p>
+    <div class="grid">
+      <div><label>Menge (ml)<input type="number" id="a" min="0" step="10" value="500"></label></div>
+      <div><label>Alkoholgehalt (%)<input type="number" id="b" min="0" step="0.5" value="5"></label></div>
+      <div><label>Körpergewicht (kg)<input type="number" id="c" min="0" step="1" value="80"></label></div>
+    </div>
+    <label style="display:block;margin-top:12px">Verteilungsfaktor<select id="d"><option value="0.7" selected>Mann (0,7)</option><option value="0.6">Frau (0,6)</option></select></label>
+    <button onclick="calc()">Gramm und Promille berechnen</button>
+    <div id="res"></div>
+    <p style="margin-top:12px;font-size:.92rem">Mehrere Getränke, Zeiten und Abbau? <a href="https://promillerechneronlne.de/">Das rechnet der vollständige Promillerechner für Sie</a>.</p>
+  </div>
+
+  <h2>Was Essen, Schlaf und Medikamente tun – und was nicht</h2>
+  <div class="box"><ul>
+    <li><strong>Essen:</strong> Eine volle Mahlzeit kann den Anstieg verlangsamen, weil Alkohol langsamer aufgenommen wird. Sie senkt die Gesamtmenge aber nicht.</li>
+    <li><strong>Schlaf:</strong> Im Schlaf baut der Körper weiter ab – etwa 0,1 bis 0,2 Promille pro Stunde. Wer mit 1,0 Promille einschläft, wacht nicht automatisch nüchtern auf.</li>
+    <li><strong>Medikamente:</strong> Viele Medikamente verstärken die Wirkung von Alkohol oder belasten die Leber. Wer regelmäßig Medikamente nimmt, sollte besonders vorsichtig sein und im Zweifel ärztlich fragen.</li>
+    <li><strong>Wasser und Kaffee:</strong> Sie helfen gegen Durst und Müdigkeit, aber sie ändern den Promillewert nicht.</li>
+  </ul></div>
+
+  <h2>Ein Getränk, durchgerechnet</h2>
+  <div class="box">
+    <p>500 Milliliter Bier mit 5 Prozent: 500 mal 0,05 mal 0,8 (Dichte von Alkohol) ergibt 20 Gramm reiner Alkohol. Bei 80 Kilogramm und Faktor 0,7: 20 geteilt durch 56 ergibt etwa 0,36 Promille. Zwei solcher Biere sind also schon rund 0,71 Promille – bevor man überhaupt an Spirituosen denkt. Genau diese Rechnung überrascht viele, weil „zwei Bier“ harmlos klingt.</p>
+  </div>
+
+  <h2>Fragen zu Alltag und Promille</h2>
+  <div class="faq">
+    <details><summary>Macht Essen mich nüchterner?</summary><p>Nein, nicht in Gramm gerechnet. Essen kann den Anstieg bremsen, aber die aufgenommene Alkoholmenge bleibt.</p></details>
+    <details><summary>Reicht eine Nacht Schlaf immer?</summary><p>Nicht immer. Bei hohen Werten braucht der Abbau viele Stunden – rechnen Sie nach, statt zu raten.</p></details>
+    <details><summary>Darf ich mit Medikamenten trinken?</summary><p>Das hängt vom Medikament ab. Lesen Sie den Beipackzettel und fragen Sie im Zweifel Ärztin oder Apotheker.</p></details>
+    <details><summary>Warum wirkt Alkohol bei jedem anders?</summary><p>Gewicht, Geschlecht, Gewöhnung, Mageninhalt und Gesundheit verändern Aufnahme und Wirkung – bei gleicher Menge.</p></details>
+  </div>
+
+  <div class="end">
+    <h2>Rechnen statt raten</h2>
+    <p>Rechnen Sie Ihre Getränke auf <a href="https://promillerechneronlne.de/">Promillerechneronlne</a> – kostenlos, ohne Anmeldung.</p>
+    <p><a href="https://promillerechneronlne.de/">Zum Promillerechner &rarr;</a></p>
+  </div>
+</div>
+
+<footer>Orientierungshilfe von <a href="https://promillerechneronlne.de/">Promillerechneronlne</a> – keine medizinische Beratung.</footer>
+
+<script>
+function calc(){
+  var ml=parseFloat(document.getElementById('a').value)||0;
+  var pct=parseFloat(document.getElementById('b').value)||0;
+  var kg=parseFloat(document.getElementById('c').value)||0;
+  var f=parseFloat(document.getElementById('d').value);
+  var r=document.getElementById('res');
+  if(!(ml>0&&kg>0)){r.className='show';r.innerHTML='<p>Bitte geben Sie positive Werte für Menge und Körpergewicht ein.</p>';return;}
+  var grams=ml*(pct/100)*0.8, prom=grams/(kg*f);
+  r.className='show';
+  r.innerHTML='<div class="big">'+grams.toFixed(1)+' g Alkohol — etwa '+prom.toFixed(2)+' Promille</div><ul>'
+    +'<li>Formel: Menge × Prozent × 0,8 = Gramm</li>'
+    +'<li>Widmark: Gramm ÷ (Gewicht × Faktor)</li></ul>'
+    +'<p style="margin-top:10px">Mehr Getränke dazu? <a href="https://promillerechneronlne.de/">Zum vollständigen Promillerechner</a>.</p>';
+}
+</script>
+</body>
+</html>
